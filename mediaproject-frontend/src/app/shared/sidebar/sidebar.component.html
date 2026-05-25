@@ -1,0 +1,12 @@
+
+<ul class="nav flex-column mt-3">
+  <li *ngIf="role === 'ADMIN'" class="nav-item">
+    <a routerLink="/admin/dashboard" class="nav-link">Admin Dashboard</a>
+  </li>
+  <li *ngIf="role === 'MANAGER'" class="nav-item">
+    <a routerLink="/manager/dashboard" class="nav-link">Manager Dashboard</a>
+  </li>
+  <li *ngIf="role === 'TEAM_MEMBER'" class="nav-item">
+    <a routerLink="/team/dashboard" class="nav-link">Team Dashboard</a>
+  </li>
+</ul>

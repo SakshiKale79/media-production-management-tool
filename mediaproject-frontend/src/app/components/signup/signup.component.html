@@ -1,0 +1,22 @@
+<h2>Signup page</h2>
+<div class="signup-container">
+  <div class="signup-box">
+    <h2>Create an Account</h2>
+
+    <form (submit)="signup(); $event.preventDefault()">
+      <input type="text" placeholder="Name" [(ngModel)]="user.name" name="name" required />
+      <input type="email" placeholder="Email" [(ngModel)]="user.email" name="email" required />
+      <input type="password" placeholder="Password" [(ngModel)]="user.password" name="password" required />
+
+      <select [(ngModel)]="user.role" name="role" required>
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p class="msg">{{ message }}</p>
+
+    <p>Already have an account? <a routerLink="/login">Login here</a></p>
+  </div>
+</div>

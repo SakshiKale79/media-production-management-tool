@@ -1,0 +1,27 @@
+<h2>Team Member Dashboard</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Deadline</th>
+      <th>Project</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.status }}</td>
+      <td>{{ task.deadline }}</td>
+      <td>{{ task.project?.title || '-' }}</td>
+      <td>
+        <button (click)="updateStatus(task.id, 'IN_PROGRESS')">Start</button>
+        <button (click)="updateStatus(task.id, 'COMPLETED')">Complete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

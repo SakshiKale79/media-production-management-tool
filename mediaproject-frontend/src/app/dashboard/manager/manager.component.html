@@ -1,0 +1,104 @@
+<h2>Project Manager Dashboard</h2>
+
+<!-- ========== PROJECT MANAGEMENT ========== -->
+<section>
+  <h3>Create Project</h3>
+  <form (submit)="createProject(); $event.preventDefault()">
+    <input [(ngModel)]="newProject.title" name="title" placeholder="Project Title" required />
+    <input [(ngModel)]="newProject.description" name="description" placeholder="Description" required />
+    <input [(ngModel)]="newProject.deadline" name="deadline" type="date" required />
+    <button type="submit">Create</button>
+  </form>
+
+  <h4>Projects</h4>
+  <table>
+    <thead>
+      <tr><th>Title</th><th>Description</th><th>Deadline</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of projects">
+        <td>{{ p.title }}</td>
+        <td>{{ p.description }}</td>
+        <td>{{ p.deadline }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr />
+
+<!-- ========== TASK MANAGEMENT ========== -->
+<section>
+  <h3>Create Task</h3>
+  <form (submit)="createTask(); $event.preventDefault()">
+    <input [(ngModel)]="newTask.title" name="taskTitle" placeholder="Task Title" required />
+    <input [(ngModel)]="newTask.description" name="taskDesc" placeholder="Description" required />
+    <input [(ngModel)]="newTask.deadline" name="taskDeadline" type="date" required />
+    
+    <select [(ngModel)]="newTask.projectId" name="projectId" required>
+      <option value="" disabled selected>Select Project</option>
+      <option *ngFor="let p of projects" [value]="p.id">{{ p.title }}</option>
+    </select>
+
+    <select [(ngModel)]="newTask.assignedUserId" name="assignedUserId">
+      <option value="">Unassigned</option>
+      <option *ngFor="let u of users" [value]="u.id">{{ u.username }}</option>
+    </select>
+
+    <select [(ngModel)]="newTask.status" name="status" required>
+      <option value="PENDING">PENDING</option>
+      <option value="IN_PROGRESS">IN_PROGRESS</option>
+      <option value="COMPLETED">COMPLETED</option>
+    </select>
+    
+    <button type="submit">Create Task</button>
+  </form>
+
+  <h4>Tasks</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Assigned To</th>
+        <th>Status</th>
+        <th>Project</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.title }}</td>
+        <td>{{ task.assignedTo?.username || 'Unassigned' }}</td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.project?.title }}</td>
+        <td>
+          <button (click)="updateTaskStatus(task.id, 'IN_PROGRESS')">Start</button>
+          <button (click)="updateTaskStatus(task.id, 'COMPLETED')">Complete</button>
+          <button (click)="unassignTask(task.id)">Unassign</button>
+          <select (change)="onAssignTask(task.id, $event)">
+            <option value="">Assign</option>
+            <option *ngFor="let u of users" [value]="u.id">{{ u.username }}</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr />
+
+<!-- ========== TEAM LISTING ========== -->
+<section>
+  <h3>Teams</h3>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let team of teams">
+        <td>{{ team.name }}</td>
+        <td>{{ team.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
